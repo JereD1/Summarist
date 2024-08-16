@@ -1,41 +1,37 @@
 import React, { useState } from 'react';
 import { auth } from '@/firebase/firebase'; 
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword } from "firebase/auth"; 
 import { useRouter } from 'next/navigation';
 
-const EmailPasswordLogin: React.FC = () => {
+const EmailSignUp: React.FC = () => {
   const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false); // Loading state
 
   const validateEmail = (email: string) => {
-    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return regex.test(email);
+    return email.endsWith('@gmail.com');
   };
 
-  const handleLogin = async (e: React.FormEvent) => {
+  const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault(); // Prevent default form submission
     setError(''); // Clear previous errors
 
-    // Validate email and password
+    // Validate email
     if (!validateEmail(email)) {
-      setError('Please enter a valid email address.');
-      return;
-    }
-    if (password.length < 6) {
-      setError('Password must be at least 6 characters long.');
+      setError('Please use a Gmail address (e.g., user@gmail.com).');
       return;
     }
 
     setLoading(true); // Set loading state
+
     try {
-      await signInWithEmailAndPassword(auth, email, password);
-      router.push('./account'); // Redirect after successful login
+      await createUserWithEmailAndPassword(auth, email, password);
+      router.push('./account'); // Redirect after successful signup
     } catch (error) {
       if (error instanceof Error) {
-        setError(`Wrong Password or Email`); // Set error message for display
+        setError(error.message); // Set error message for display
       }
     } finally {
       setLoading(false); // Reset loading state
@@ -44,7 +40,7 @@ const EmailPasswordLogin: React.FC = () => {
 
   return (
     <div className='flex flex-col justify-center items-center'>
-      <form onSubmit={handleLogin} className='flex flex-col'>
+      <form onSubmit={handleSignUp} className='flex flex-col'>
         <input
           type='email'
           placeholder='Email Address'
@@ -67,11 +63,11 @@ const EmailPasswordLogin: React.FC = () => {
           className={`bg-green-600 hover:bg-green-800 rounded text-white p-2 ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
           disabled={loading} // Disable button when loading
         >
-          {loading ? 'Logging in...' : 'Login'}
+          {loading ? 'Signing up...' : 'Sign up'}
         </button>
       </form>
     </div>
   );
 };
 
-export default EmailPasswordLogin;
+export default EmailSignUp;
