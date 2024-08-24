@@ -18,7 +18,7 @@ const AccountPage = () => {
         <h3>We think you'll like these</h3>
         < RecommendedBook />
       </div>
-      <div>
+      <div className='mt-4'>
         <h1 className='font-semibold text-xl mt-4 mb-3'>Suggested Books</h1>
         <h3>Browse those books</h3>
         <SuggestedBooks /> 

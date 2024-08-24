@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react'
 import axios, { AxiosResponse } from 'axios'
 import { Book } from './book'
-import { Link } from 'react-router-dom'
+import  Link  from 'next/link'
 import { CiStar } from "react-icons/ci";
 
 const SuggestedBooks: React.FC = () => {
@@ -29,7 +29,7 @@ const SuggestedBooks: React.FC = () => {
   return (
     <div className="flex flex-row overflow-x-auto space-x-4 mt-10">
       {books.map((book) => (
-        <Link to={`/account/books/${book.id}`} key={book.id} >
+        <Link href={`/account/book/${book.id}`} key={book.id} >
         <div key={book.id} className="flex-shrink-0 w-64">
             <div className='flex w-40 m-3 justify-end'>
             {book.subscriptionRequired && (
@@ -39,7 +39,7 @@ const SuggestedBooks: React.FC = () => {
           <img
             src={book.imageLink}
             alt={book.title}
-            className="w-[170px] h-[150px]"
+            className="w-[172px] h-[172px]"
           />
           <div className="p-4">
             <h3 className="text-sm font-bold mb-1">{book.title}</h3>
