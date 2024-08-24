@@ -23,7 +23,7 @@ To set up this project locally, follow these steps:
 1. **Clone the repository:**
 
    ```bash
-   git clone https://github.com/yourusername/my-reading-app.git
+   git clone https://github.com/JereD1/Summarist.git
 Usage
 Search for Books
 
@@ -56,41 +56,6 @@ Search Books
 
     Endpoint: GET /api/getBooksByAuthorOrTitle
     Query Parameter: search (string) - The search query for book title or author.
-
-Folder Structure
-
-ruby
-
-/my-reading-app
-├── public/              # Static files (images, favicon, etc.)
-├── src/                 # Source files
-│   ├── app/             # Application routes and components
-│   │   ├── account/     # Account-related pages and components
-│   │   ├── library/     # Library-related pages and components
-│   │   ├── search/      # Search-related pages and components
-│   ├── components/      # Reusable components
-│   ├── styles/          # Global styles
-│   └── utils/           # Utility functions and helpers
-├── .env.local           # Environment variables
-├── next.config.js       # Next.js configuration
-└── package.json         # Project dependencies and scripts
-
-Contributing
-
-Contributions are welcome! Please follow these steps to contribute:
-
-    Fork the repository
-    Create a new branch: git checkout -b feature-branch
-    Make your changes
-    Commit your changes: git commit -am 'Add new feature'
-    Push to the branch: git push origin feature-branch
-    Create a new Pull Request
-
-License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-markdown
 
 
 ### Creating a Downloadable File
