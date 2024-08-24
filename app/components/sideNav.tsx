@@ -16,19 +16,19 @@ const SideNav = () => {
     }, []);
 
     const handleLibrary = () => {
-        router.push('./account/library');
+        router.push('/account/library'); // Ensure the path is absolute and correct
     };
 
     const handleHomeRoute = () => {
-        router.push('/account');
+        router.push('/account'); // Ensure the path is absolute and correct
     };
 
-    const handleSetting =() => {
-        router.push('./account/settings');
-    }
+    const handleSetting = () => {
+        router.push('/account/settings'); // Ensure the path is absolute and correct
+    };
 
     const handleLogOut = () => {
-        router.push('/');
+        router.push('/'); // Ensure the path is absolute and correct
     };
 
     if (loading) {

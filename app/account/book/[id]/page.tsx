@@ -14,6 +14,7 @@ const BookDetails: React.FC = () => {
   const [book, setBook] = useState<Book | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
+  const [isInLibrary, setIsInLibrary] = useState<boolean>(false); // Track library status
 
   useEffect(() => {
     let isMounted = true; // Flag to track whether the component is mounted
@@ -26,12 +27,13 @@ const BookDetails: React.FC = () => {
           `https://us-central1-summaristt.cloudfunctions.net/getBook?id=${id}`
         );
 
-        if (isMounted) { // Only update state if the component is still mounted
+        if (isMounted) {
           setBook(response.data);
+          setIsInLibrary(isBookInLibrary(response.data.id)); // Check if book is in library
           setLoading(false);
         }
       } catch (error) {
-        if (isMounted) { // Only update state if the component is still mounted
+        if (isMounted) {
           if (axios.isAxiosError(error)) {
             setError(error.message);
           } else {
@@ -49,6 +51,28 @@ const BookDetails: React.FC = () => {
     };
   }, [id]);
 
+  const isBookInLibrary = (bookId: string) => {
+    const library = JSON.parse(localStorage.getItem('library') || '[]');
+    return library.includes(bookId);
+  };
+
+  const toggleLibrary = () => {
+    if (!book) return;
+
+    let library = JSON.parse(localStorage.getItem('library') || '[]');
+
+    if (isInLibrary) {
+      // Remove book from library
+      library = library.filter((bookId: string) => bookId !== book.id);
+    } else {
+      // Add book to library
+      library.push(book.id);
+    }
+
+    localStorage.setItem('library', JSON.stringify(library));
+    setIsInLibrary(!isInLibrary);
+  };
+
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -64,43 +88,47 @@ const BookDetails: React.FC = () => {
   return (
     <div className="flex flex-col md:flex-row mx-20 mt-6 px-32">
       <div className="flex flex-col md:w-2/3">
-      <div className='border-b p-2'>
-      <h1 className="text-3xl font-bold w-[660px] mb-2">{book.title}</h1>
-        <p className="font-semibold mb-2">{book.author}</p>
-        <p className="text-gray-600">{book.subTitle}</p>
-      </div>
+        <div className='border-b p-2'>
+          <h1 className="text-3xl font-bold w-[660px] mb-2">{book.title}</h1>
+          <p className="font-semibold mb-2">{book.author}</p>
+          <p className="text-gray-600">{book.subTitle}</p>
+        </div>
         <div className='border-b'>
-        <div className=" flex items-center gap-2 my-4">
-          <FaRegStar />
-          <h2 className="text-lg font-semibold">{book.averageRating}</h2>
-          <h2>{book.totalRating} ratings</h2>
+          <div className="flex items-center gap-2 my-4">
+            <FaRegStar />
+            <h2 className="text-lg font-semibold">{book.averageRating}</h2>
+            <h2>{book.totalRating} ratings</h2>
+          </div>
+          <div className="flex items-center gap-12 my-4">
+            <h2 className="font-semibold flex items-center gap-3">
+              <FiMic /> {book.type}
+            </h2>
+            <h2 className="font-semibold flex items-center gap-2">
+              <HiOutlineLightBulb />
+              {book.keyIdeas} Key Ideas
+            </h2>
+          </div>
         </div>
-        <div className=" flex items-center gap-12 my-4">
-          <h2 className=" font-semibold flex items-center gap-3">
-            <FiMic /> {book.type}
-          </h2>
-          <h2 className="font-semibold flex items-center gap-2">
-          <HiOutlineLightBulb />
-            {book.keyIdeas} Key Ideas</h2>
-        </div>
-           </div>
-        
+
         <div className="my-4 flex gap-5">
-        <Link href={`/account/player/${book.id}`} key={book.id}>
-          <button className=" bg-blue-950 text-white flex justify-center items-center gap-2 w-40 h-12 rounded">
-            <MdMenuBook size={20} /> Read
-          </button>
+          <Link href={`/account/player/${book.id}`} key={book.id}>
+            <button className="bg-blue-950 text-white flex justify-center items-center gap-2 w-40 h-12 rounded">
+              <MdMenuBook size={20} /> Read
+            </button>
           </Link>
           <Link href={`/account/player/${book.id}`} key={book.id}>
-          <button className="bg-blue-950 text-white flex justify-center items-center gap-2 w-40 h-12 rounded">
-            <FiMic /> Listen
-          </button>
+            <button className="bg-blue-950 text-white flex justify-center items-center gap-2 w-40 h-12 rounded">
+              <FiMic /> Listen
+            </button>
           </Link>
-          
         </div>
-        <div className='flex'>
-        <button className="flex items-center gap-3 text-blue-600 font-semibold">
-            <FaRegBookmark /> Add title to My Library
+        <div className="my-4">
+          <button
+            onClick={toggleLibrary}
+            className="flex items-center gap-3 text-blue-600 font-semibold"
+          >
+            <FaRegBookmark />
+            {isInLibrary ? 'Remove from My Library' : 'Add to My Library'}
           </button>
         </div>
 
@@ -109,7 +137,7 @@ const BookDetails: React.FC = () => {
           <div className="flex flex-wrap gap-2">
             {Array.isArray(book.tags)
               ? book.tags.map((tag: string) => (
-                  <button key={tag} className=" bg-gray-200 px-4 py-2 my-3 border rounded">
+                  <button key={tag} className="bg-gray-200 px-4 py-2 my-3 border rounded">
                     {tag}
                   </button>
                 ))
