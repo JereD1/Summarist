@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import { auth } from '@/firebase/firebase'; 
 import { createUserWithEmailAndPassword } from "firebase/auth"; 
 import { useRouter } from 'next/navigation';
+import { getFirestore, doc, setDoc } from 'firebase/firestore';
 
 const EmailSignUp: React.FC = () => {
   const router = useRouter();
+  const db = getFirestore();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -27,7 +29,17 @@ const EmailSignUp: React.FC = () => {
     setLoading(true); // Set loading state
 
     try {
-      await createUserWithEmailAndPassword(auth, email, password);
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+
+      // Store user data in Firestore
+      const userRef = doc(db, 'users', user.uid);
+      await setDoc(userRef, {
+        email: user.email,
+        plan: 'basic', // Default plan
+        createdAt: new Date(), // Timestamp
+      });
+
       router.push('./account'); // Redirect after successful signup
     } catch (error) {
       if (error instanceof Error) {

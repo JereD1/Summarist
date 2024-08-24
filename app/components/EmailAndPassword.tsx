@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import { auth } from '@/firebase/firebase'; 
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useRouter } from 'next/navigation';
+import { getFirestore, doc, setDoc } from 'firebase/firestore';
 
 const EmailPasswordLogin: React.FC = () => {
   const router = useRouter();
+  const db = getFirestore();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -31,11 +33,21 @@ const EmailPasswordLogin: React.FC = () => {
 
     setLoading(true); // Set loading state
     try {
-      await signInWithEmailAndPassword(auth, email, password);
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+
+      // Store user data in Firestore
+      const userRef = doc(db, 'users', user.uid);
+      await setDoc(userRef, {
+        email: user.email,
+        plan: 'basic', // Default plan
+        createdAt: new Date(), // Timestamp
+      });
+
       router.push('./account'); // Redirect after successful login
     } catch (error) {
       if (error instanceof Error) {
-        setError(`Wrong Password or Email`); // Set error message for display
+        setError('Wrong Password or Email'); // Set error message for display
       }
     } finally {
       setLoading(false); // Reset loading state

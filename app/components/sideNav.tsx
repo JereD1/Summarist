@@ -23,6 +23,10 @@ const SideNav = () => {
         router.push('/account');
     };
 
+    const handleSetting =() => {
+        router.push('./account/settings');
+    }
+
     const handleLogOut = () => {
         router.push('/');
     };
@@ -70,7 +74,7 @@ const SideNav = () => {
                 </div>
             </div>
             <div className='flex flex-col items-center w-[190px] mt-auto'>
-                <button className='flex hover:bg-gray-200 p-4 w-full'>
+                <button onClick={handleSetting} className='flex hover:bg-gray-200 p-4 w-full'>
                     <IoSettingsOutline size={20} className='mr-4' />
                     <span>Settings</span>
                 </button>
