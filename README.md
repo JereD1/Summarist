@@ -22,54 +22,38 @@ To set up this project locally, follow these steps:
 
 1. **Clone the repository:**
 
-   ```bash
-   git clone https://github.com/JereD1/Summarist.git
-Usage
-Search for Books
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
+```
 
-Use the search bar to enter book titles or authors. The results will display matching books.
-View Book Details
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-Click on a book to view its details. You’ll see information like the title, author, ratings, and a summary. If available, an audio player will allow you to listen to the book summary.
-Manage Your Library
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-Books can be added to or removed from your personal library. Access your library from the sidebar to view and manage your saved books.
-Sidebar Navigation
+This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
-The sidebar contains links to:
+## Learn More
 
-    Home: View recommended books.
-    My Library: Manage your saved books.
-    Highlights: View highlighted books.
-    Search: Access the book search page.
-    Settings: Configure application settings.
-    Help & Support: Get help and support.
-    Logout: Sign out of your account.
+To learn more about Next.js, take a look at the following resources:
 
-API Endpoints..
-Get Book Details
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-    Endpoint: GET /api/getBook
-    Query Parameter: id (string) - The ID of the book.
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
-Search Books
+## Deploy on Vercel
 
-    Endpoint: GET /api/getBooksByAuthorOrTitle
-    Query Parameter: search (string) - The search query for book title or author.
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
 
 
-### Creating a Downloadable File
-
-1. **Create the README.md File**:
-
-   - Open a text editor (like Notepad on Windows or TextEdit on macOS).
-   - Copy and paste the above content into the text editor.
-   - Save the file with the name `README.md`.
-
-2. **Share or Download**:
-
-   - : You can upload the `README.md` file to a file-sharing service like Dropbox or Google Drive and share the link.
-   -  Alternatively, create a [GitHub Gist](https://gist.github.com/) with the README content and share the Gist URL.
-
-If you need further assistance with generating a downloadable link or have other questions, feel free to ask!
-
+Currently
+There are problem with the project it's not responsive for smaller devices
+The Login and Sing Up Modal are overlapping 
