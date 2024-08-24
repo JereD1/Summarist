@@ -12,7 +12,8 @@ export interface Book {
     status: string;
     subscriptionRequired: boolean;
     summary: string;
-    tags: string[];
+    tags?: string | string[];
     bookDescription: string;
     authorDescription: string;
+    
   }
