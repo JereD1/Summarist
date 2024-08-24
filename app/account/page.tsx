@@ -3,7 +3,7 @@ import React from 'react';
 import SelectedBook from './selectedBook';
 import RecommendedBook from './recommendedBooks';
 import SuggestedBooks from './suggestedBooks';
-import { BrowserRouter as Router, Link, useHref } from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 
 const AccountPage = () => {
   return (
