@@ -35,64 +35,64 @@ const LoginModal: React.FC<{ isVisible: boolean; onClose: () => void; }> = ({ is
             
             {showSignUp ? (
               <>
-              <div className="flex justify-end">
-                <IoMdClose
-                  size={25}
-                  className="hover:cursor-pointer text-black"
-                  onClick={onClose}
-            />
-            </div>
-            <div className="flex flex-col justify-center items-center">
-                <h2 className="text-xl font-semibold mb-4">Sign up to Summarist</h2>
-
-                <GoogleSignUp />
-                <div className="m-4 flex flex-row justify-center items-center gap-4">
-                  <div className="w-[120px] border-t-2 border-gray-400 "></div>
-                  <span>or</span>
-                  <div className="w-[120px] border-t-2 border-gray-400 "></div>
+                <div className="flex justify-end">
+                  <IoMdClose
+                    size={25}
+                    className="hover:cursor-pointer text-black"
+                    onClick={onClose}
+                  />
                 </div>
-                <EmailSignUp />
-               
-                <p className="mt-4 text-sm text-center">
-                  Already have an account?{" "}
-                  <button onClick={openLogin} className="text-blue-500 hover:underline">
-                    Login
-                  </button>
-                </p>
+                <div className="flex flex-col justify-center items-center">
+                  <h2 className="text-xl font-semibold mb-4">Sign up to Summarist</h2>
+
+                  <GoogleSignUp />
+                  <div className="m-4 flex flex-row justify-center items-center gap-4">
+                    <div className="w-[120px] border-t-2 border-gray-400 "></div>
+                    <span>or</span>
+                    <div className="w-[120px] border-t-2 border-gray-400 "></div>
+                  </div>
+                  <EmailSignUp />
+                 
+                  <p className="mt-4 text-sm text-center">
+                    Already have an account?{" "}
+                    <button onClick={openLogin} className="text-blue-500 hover:underline">
+                      Login
+                    </button>
+                  </p>
                 </div>
               </>
             ) : (
               <>
-              <div className="flex justify-end">
-                <IoMdClose
-                  size={25}
-                  className="hover:cursor-pointer text-black"
-                  onClick={onClose}
-            />
-            </div>
-               <div className="flex flex-col justify-center items-center">
-                <h2 className="text-xl font-semibold mb-4">Log in to Summarist</h2>
+                <div className="flex justify-end">
+                  <IoMdClose
+                    size={25}
+                    className="hover:cursor-pointer text-black"
+                    onClick={onClose}
+                  />
+                </div>
+                <div className="flex flex-col justify-center items-center">
+                  <h2 className="text-xl font-semibold mb-4">Log in to Summarist</h2>
 
-                <AnonymmousLog />
-                <div className="m-4 flex flex-row justify-center items-center gap-4">
-                  <div className="w-[120px] border-t-2 border-gray-400 "></div>
-                  <span>or</span>
-                  <div className="w-[120px] border-t-2 border-gray-400 "></div>
-                </div>
-                < GoogleLogin />
-                <div className="m-4 flex flex-row justify-center items-center gap-4">
-                  <div className="w-[120px] border-t-2 border-gray-400 "></div>
-                  <span>or</span>
-                  <div className="w-[120px] border-t-2 border-gray-400 "></div>
-                </div>
-                
-                <EmailAndPassword /> 
-                <p className="mt-4 text-sm text-center">
-                  Don't have an account?{" "}
-                  <button onClick={openSignUp} className="text-blue-500 hover:underline">
-                    Sign up
-                  </button>
-                </p>
+                  <AnonymmousLog />
+                  <div className="m-4 flex flex-row justify-center items-center gap-4">
+                    <div className="w-[120px] border-t-2 border-gray-400 "></div>
+                    <span>or</span>
+                    <div className="w-[120px] border-t-2 border-gray-400 "></div>
+                  </div>
+                  <GoogleLogin />
+                  <div className="m-4 flex flex-row justify-center items-center gap-4">
+                    <div className="w-[120px] border-t-2 border-gray-400 "></div>
+                    <span>or</span>
+                    <div className="w-[120px] border-t-2 border-gray-400 "></div>
+                  </div>
+                  
+                  <EmailAndPassword /> 
+                  <p className="mt-4 text-sm text-center">
+                    Don&apos;t have an account?{" "}
+                    <button onClick={openSignUp} className="text-blue-500 hover:underline">
+                      Sign up
+                    </button>
+                  </p>
                 </div>
               </>
             )}

@@ -4,6 +4,7 @@ import { Book } from '@/app/account/book'; // Adjust the import path as needed
 import axios, { AxiosResponse } from 'axios';
 import Link from 'next/link'
 import { CiStar } from "react-icons/ci";
+import Image from 'next/image';
 
 const Library: React.FC = () => {
   const [library, setLibrary] = useState<Book[]>([]);
@@ -39,9 +40,11 @@ const Library: React.FC = () => {
         {library.map((book) => (
           <div key={book.id} className="border-b py-4 flex items-start">
             <div className="flex-shrink-0 w-32 h-32">
-              <img
+              <Image
                 src={book.imageLink}
                 alt={book.title}
+                width={500}
+                height={500}
                 className="w-full h-full object-cover"
               />
             </div>

@@ -5,6 +5,7 @@ import { Book } from './book'
 import Link from 'next/link'
 import { CiStar } from "react-icons/ci";
 
+
 const RecommendedBooks: React.FC = () => {
   const [books, setBooks] = useState<Book[]>([]);
   const [error, setError] = useState<string | null>(null);

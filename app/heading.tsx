@@ -1,3 +1,4 @@
+'use client'
 import { useState } from 'react';
 import Image from 'next/image';
 import LoginModal from './components/loginModal';
@@ -15,7 +16,7 @@ const Heading = () => {
         </div>
         <div className='text-center lg:text-left mb-4 lg:mb-4 w-full lg:w-[300px]'>
           <p>
-            Great summaries for busy people, individuals who barely have time to read, and even people who don't like to read.
+            Great summaries for busy people, individuals who barely have time to read, and even people who don&apos;t like to read.
           </p>
         </div>
         <div className='flex justify-center lg:justify-start'>

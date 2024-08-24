@@ -1,8 +1,9 @@
 'use client'
-import { useEffect, useState } from 'react'
-import axios, { AxiosResponse } from 'axios'
-import Link from 'next/link'
-import { Book } from '@/app/account/book'; // Adjust the import path as needed
+import { useEffect, useState } from 'react';
+import axios, { AxiosResponse } from 'axios';
+import Link from 'next/link';
+import Image from 'next/image';
+import { Book } from '@/app/account/book'; 
 import { useParams } from 'next/navigation';
 import { FiMic } from "react-icons/fi";
 import { MdMenuBook } from "react-icons/md";
@@ -133,7 +134,7 @@ const BookDetails: React.FC = () => {
         </div>
 
         <div className="my-4">
-          <h2 className="text-lg font-semibold">What's it about</h2>
+          <h2 className="text-lg font-semibold">What&apos;s it about</h2>
           <div className="flex flex-wrap gap-2">
             {Array.isArray(book.tags)
               ? book.tags.map((tag: string) => (
@@ -155,7 +156,13 @@ const BookDetails: React.FC = () => {
         </div>
       </div>
       <div className="flex-shrink-0 md:w-1/3 mt-6 md:mt-0">
-        <img src={book.imageLink} alt={book.title} className="w-full h-auto max-w-xs mx-auto" />
+        <Image
+          src={book.imageLink}
+          alt={book.title}
+          width={500} 
+          height={750}  
+          className="w-full h-auto max-w-xs mx-auto"
+        />
       </div>
     </div>
   );

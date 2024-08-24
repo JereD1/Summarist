@@ -1,5 +1,5 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import { MdKeyboardArrowUp, MdKeyboardArrowDown } from "react-icons/md";
 
 interface ButtonState {
@@ -9,7 +9,7 @@ interface ButtonState {
   button4: boolean;
 }
 
-const aboutPlan = () => {
+const AboutPlan: React.FC = () => {
   const [showText, setShowText] = useState<ButtonState>({
     button1: false,
     button2: false,
@@ -33,11 +33,11 @@ const aboutPlan = () => {
         </button>
         <div style={{ display: showText.button4 ? 'block' : 'none' }} className='transition ease-in-out delay-500'>
           <h3 className='text-base mb-4'>
-             Begin your complimentary 7-day trial with a Summarist annual membership. 
+            Begin your complimentary 7-day trial with a Summarist annual membership. 
             You are under no obligation to continue your subscription, 
             and you will only be billed when the trial period expires. 
             With Premium access, you can learn at your own pace and as frequently as you desire,
-             and you may terminate your subscription prior to the conclusion of the 7-day free trial.
+            and you may terminate your subscription prior to the conclusion of the 7-day free trial.
           </h3>
         </div>
       </div>
@@ -49,17 +49,16 @@ const aboutPlan = () => {
         </button>
         <div style={{ display: showText.button3 ? 'block' : 'none' }} className='transition ease-in-out delay-500'>
           <h3 className='text-base mb-4'>
-          While an annual plan is active,
-             it is not feasible to switch to a monthly plan. However, 
-             once the current month ends, transitioning from a monthly plan 
-             to an annual plan is an option.
+            While an annual plan is active, it is not feasible to switch to a monthly plan. However, 
+            once the current month ends, transitioning from a monthly plan 
+            to an annual plan is an option.
           </h3>
         </div>
       </div>
 
       <div className='border-b-2 mb-6 flex flex-col'>
         <button onClick={() => handleButtonClick('button2')} className='flex justify-between'>
-          <h1 className='mb-4 font-bold text-2xl'>What's included in the Premium plan?</h1>
+          <h1 className='mb-4 font-bold text-2xl'>What&apos;s included in the Premium plan?</h1>
           {showText.button2 ? <MdKeyboardArrowDown size={30} /> : <MdKeyboardArrowUp size={30} />}
         </button>
         <div style={{ display: showText.button2 ? 'block' : 'none' }} className='transition ease-in-out delay-500'>
@@ -81,7 +80,7 @@ const aboutPlan = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default aboutPlan;
+export default AboutPlan;

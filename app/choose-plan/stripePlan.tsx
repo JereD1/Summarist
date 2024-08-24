@@ -1,7 +1,7 @@
 'use client'
 import React, { useState } from 'react';
 
-const stripePlan = () => {
+const StripePlan: React.FC = () => {
   const [selectedPlan, setSelectedPlan] = useState('premiumPlus');
 
   const handleSelectPlan = (plan: string) => {
@@ -53,7 +53,7 @@ const stripePlan = () => {
           />
           <div className="ml-14"> 
             <h2 className='font-bold text-lg'>Premium Monthly</h2>
-            <h2 className='fotn-bold text-xl'>$9.99/Month</h2>
+            <h2 className='font-bold text-xl'>$9.99/Month</h2>
             <h3>No trial included</h3>
           </div>
         </label>
@@ -64,7 +64,7 @@ const stripePlan = () => {
           <button className='bg-green-500 p-2 w-72 rounded m-2'>
             Start your free 7-day trial
           </button>
-          <h3>Cancel your trial at any time before it ends, and you won't be charged</h3>
+          <h3>Cancel your trial at any time before it ends, and you won&apos;t be charged</h3>
         </div>
       )}
 
@@ -80,4 +80,4 @@ const stripePlan = () => {
   );
 };
 
-export default stripePlan;
+export default StripePlan;
