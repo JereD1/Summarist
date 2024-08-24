@@ -1,6 +1,7 @@
 'use client'
 import { useEffect, useState } from 'react'
 import axios, { AxiosResponse } from 'axios'
+import Link from 'next/link'
 import { Book } from '@/app/account/book'; // Adjust the import path as needed
 import { useParams } from 'next/navigation';
 import { FiMic } from "react-icons/fi";
@@ -85,12 +86,16 @@ const BookDetails: React.FC = () => {
            </div>
         
         <div className="my-4 flex gap-5">
+        <Link href={`/account/player/${book.id}`} key={book.id}>
           <button className=" bg-blue-950 text-white flex justify-center items-center gap-2 w-40 h-12 rounded">
             <MdMenuBook size={20} /> Read
           </button>
-          <button className="bg-blue-950 text-white flex justify-center items-center gap-2 w-40 rounded">
+          </Link>
+          <Link href={`/account/player/${book.id}`} key={book.id}>
+          <button className="bg-blue-950 text-white flex justify-center items-center gap-2 w-40 h-12 rounded">
             <FiMic /> Listen
           </button>
+          </Link>
           
         </div>
         <div className='flex'>

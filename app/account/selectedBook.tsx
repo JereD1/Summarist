@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react';
 import axios, { AxiosResponse } from 'axios';
 import { Book } from './book'
+import Link from 'next/link'
 
 
 const BookDetails: React.FC = () => {
@@ -42,6 +43,8 @@ const BookDetails: React.FC = () => {
   }
 
   return (
+    <>
+  <Link href={`/account/book/${book.id}`} key={book.id} >
     <div className='bg-yellow-100 w-[650px] h-[200px] flex flex-col '>
       <div className='flex'>
       <div className='m-2 p-5 w-[250px] h-[160px] border-r '>
@@ -58,6 +61,8 @@ const BookDetails: React.FC = () => {
       </div>  
       </div>
     </div>
+    </Link>
+    </>
   );
 };
 
