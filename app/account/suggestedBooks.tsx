@@ -2,15 +2,16 @@
 import { useEffect, useState } from 'react'
 import axios, { AxiosResponse } from 'axios'
 import { Book } from './book'
-import Link from 'next/link'
 import { CiStar } from "react-icons/ci";
 import { useRouter } from 'next/navigation';
-import { auth } from '@/firebase/firebase'; 
+import { auth } from '@/firebase/firebase';
+import Skeleton from '@mui/material/Skeleton'; 
 import LoginModal from '@/app/components/loginModal'; // Ensure you import your modal component
 
 const SuggestedBooks: React.FC = () => {
   const [books, setBooks] = useState<Book[]>([]);
   const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
   const [userPlan, setUserPlan] = useState<'basic' | 'premium'>('basic');
   const [showModal, setShowModal] = useState<boolean>(false);
   const router = useRouter();
@@ -27,6 +28,8 @@ const SuggestedBooks: React.FC = () => {
           setError('An error occurred');
         }
         console.error('Fetch error:', error);
+      }finally {
+        setLoading(false);
       }
     };
     fetchBooks();
@@ -48,6 +51,17 @@ const SuggestedBooks: React.FC = () => {
       }
     }
   };
+
+  if (loading) {
+    return (
+      <div className="flex flex-col mx-6 lg:mx-20 mt-6 lg:px-32">
+        <Skeleton variant="text" width="80%" height={40} />
+        <Skeleton variant="rectangular" width="100%" height={200} className="mt-4" />
+        <Skeleton variant="text" width="60%" height={30} className="mt-4" />
+        <Skeleton variant="text" width="60%" height={30} className="mt-2" />
+      </div>
+    );
+  }
 
   return (
     <div>

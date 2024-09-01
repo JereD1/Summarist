@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import { useEffect, useState } from 'react';
 import axios, { AxiosResponse } from 'axios';
 import Link from 'next/link';
@@ -9,6 +9,7 @@ import { FiMic } from "react-icons/fi";
 import { MdMenuBook } from "react-icons/md";
 import { FaRegStar, FaRegBookmark } from "react-icons/fa";
 import { HiOutlineLightBulb } from "react-icons/hi";
+import Skeleton from '@mui/material/Skeleton';
 
 const BookDetails: React.FC = () => {
   const { id } = useParams(); // Retrieves the dynamic ID from the URL
@@ -75,7 +76,15 @@ const BookDetails: React.FC = () => {
   };
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="flex flex-col mx-6 lg:mx-20 mt-6 lg:px-32">
+      <Skeleton variant="text" width="80%" height={40} />
+      <Skeleton variant="rectangular" width="100%" height={200} className="mt-4" />
+      <Skeleton variant="text" width="60%" height={30} className="mt-4" />
+      <Skeleton variant="text" width="60%" height={30} className="mt-2" />
+    </div>
+    );
+
   }
 
   if (error) {
@@ -87,10 +96,10 @@ const BookDetails: React.FC = () => {
   }
 
   return (
-    <div className="flex flex-col md:flex-row mx-20 mt-6 px-32">
+    <div className="flex flex-col md:flex-row mx-4 md:mx-20 mt-6 px-4 md:px-32">
       <div className="flex flex-col md:w-2/3">
         <div className='border-b p-2'>
-          <h1 className="text-3xl font-bold w-[660px] mb-2">{book.title}</h1>
+          <h1 className="text-3xl font-bold mb-2">{book.title}</h1>
           <p className="font-semibold mb-2">{book.author}</p>
           <p className="text-gray-600">{book.subTitle}</p>
         </div>
@@ -111,14 +120,14 @@ const BookDetails: React.FC = () => {
           </div>
         </div>
 
-        <div className="my-4 flex gap-5">
+        <div className="my-4 flex gap-5 flex-wrap">
           <Link href={`/account/player/${book.id}`} key={book.id}>
-            <button className="bg-blue-950 text-white flex justify-center items-center gap-2 w-40 h-12 rounded">
+            <button className="bg-blue-950 text-white flex justify-center items-center gap-2 w-40 h-12 rounded mb-2">
               <MdMenuBook size={20} /> Read
             </button>
           </Link>
           <Link href={`/account/player/${book.id}`} key={book.id}>
-            <button className="bg-blue-950 text-white flex justify-center items-center gap-2 w-40 h-12 rounded">
+            <button className="bg-blue-950 text-white flex justify-center items-center gap-2 w-40 h-12 rounded mb-2">
               <FiMic /> Listen
             </button>
           </Link>

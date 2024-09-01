@@ -1,13 +1,9 @@
-'use client'
-import { useEffect, useState } from 'react'
-import axios, { AxiosResponse } from 'axios'
+'use client';
+import { useEffect, useState } from 'react';
+import axios, { AxiosResponse } from 'axios';
 import { Book } from '@/app/account/book'; // Adjust the import path as needed
 import { useParams } from 'next/navigation';
-import { FiMic } from "react-icons/fi";
-import { MdMenuBook } from "react-icons/md";
-import { FaRegStar, FaRegBookmark } from "react-icons/fa";
-import { HiOutlineLightBulb } from "react-icons/hi";
-
+import Skeleton from '@mui/material/Skeleton';
 
 const BookDetails: React.FC = () => {
   const { id } = useParams(); // Retrieves the dynamic ID from the URL
@@ -52,7 +48,14 @@ const BookDetails: React.FC = () => {
   }, [id]);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="flex flex-col mx-6 lg:mx-20 mt-6 lg:px-32">
+        <Skeleton variant="text" width="80%" height={40} />
+        <Skeleton variant="rectangular" width="100%" height={200} className="mt-4" />
+        <Skeleton variant="text" width="60%" height={30} className="mt-4" />
+        <Skeleton variant="text" width="60%" height={30} className="mt-2" />
+      </div>
+    );
   }
 
   if (error) {
@@ -73,40 +76,35 @@ const BookDetails: React.FC = () => {
 
   return (
     <div>
-        <div className="flex flex-col mx-20 mt-6 px-32">
-      <div className="flex flex-col">
-        <div className='border-b p-2'>
-          <h1 className="text-3xl font-bold mb-2">{book.title}</h1>
+      <div className="flex flex-col mx-6 lg:mx-20 mt-6 lg:px-32">
+        <div className="flex flex-col">
+          <div className='border-b p-2'>
+            <h1 className="text-3xl font-bold mb-2">{book.title}</h1>
+          </div>
+          <div className="mt-4">
+            {renderParagraphs(book.summary)}
+          </div>
         </div>
-        <div className="mt-4">
-          {renderParagraphs(book.summary)}
-        </div>
-        {/* Audio player section */}
-        
       </div>
-    </div>
-         <div className='w-[1540px] h-[150px] bg-blue-950 mt-6 flex flex-col '>
+      <div className='lg:w-[1540px] lg:h-[150px] bg-blue-950 mt-6 flex flex-col'>
         {audioUrl && (
-          <div className="flex mt-10 h-[140px]">  
+          <div className="flex mt-4 lg:mt-10 lg:h-[140px]">  
             <img
-            src={book.imageLink}
-            alt={book.title}
-            className=" flex flex-col w-[70px] h-[80px] mx-4 py-2"
-          />
-            <div className='flex flex-col  '>
-            <h2 className='text-white font-bold mb-2'>{book.title}</h2>
-            <h2 className='text-gray-50'>{book.author}</h2>
+              src={book.imageLink}
+              alt={book.title}
+              className="flex flex-col w-[70px] h-[80px] mx-4 py-2"
+            />
+            <div className='flex flex-col'>
+              <h2 className='text-white font-bold mb-2'>{book.title}</h2>
+              <h2 className='text-gray-50'>{book.author}</h2>
             </div>
-            <audio controls className="flex items-center justify-end m-auto w-[600px] border-2">
+            <audio controls className="flex items-center lg:justify-end m-auto w-[200px] lg:w-[600px] border-2">
               <source src={audioUrl} type="audio/mpeg" />
             </audio>
-            
           </div>
-          
         )}
-        </div>
+      </div>
     </div>
-    
   );
 };
 
