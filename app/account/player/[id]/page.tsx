@@ -98,7 +98,7 @@ const BookDetails: React.FC = () => {
               <h2 className='text-white font-bold mb-2'>{book.title}</h2>
               <h2 className='text-gray-50'>{book.author}</h2>
             </div>
-            <audio controls className="flex items-center lg:justify-end m-auto w-[200px] lg:w-[600px] border-2">
+            <audio controls className="flex items-center lg:justify-end m-auto w-[200px] lg:w-[600px]">
               <source src={audioUrl} type="audio/mpeg" />
             </audio>
           </div>
