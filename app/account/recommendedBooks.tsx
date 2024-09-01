@@ -4,11 +4,17 @@ import axios, { AxiosResponse } from 'axios'
 import { Book } from './book'
 import Link from 'next/link'
 import { CiStar } from "react-icons/ci";
+import { useRouter } from 'next/navigation';
+import { auth } from '@/firebase/firebase'; 
+import LoginModal from '@/app/components/loginModal';
 
 
 const RecommendedBooks: React.FC = () => {
   const [books, setBooks] = useState<Book[]>([]);
   const [error, setError] = useState<string | null>(null);
+  const [showModal, setShowModal] = useState<boolean>(false);
+  const [userPlan, setUserPlan] = useState<'basic' | 'premium'>('basic'); // Track premium status
+  const router = useRouter();
 
   useEffect(() => {
     const fetchBooks = async () => {
@@ -27,11 +33,29 @@ const RecommendedBooks: React.FC = () => {
     fetchBooks();
   }, []);
 
+
+  const handleBookClick = (bookId: string, subscriptionRequired: boolean) => {
+    const user = auth.currentUser;
+
+    if (!user) {
+      // User is not logged in, show the login modal and store the book ID
+      setShowModal(true);
+  
+    } else {
+      // User is logged in, check subscription plan
+      if (subscriptionRequired && userPlan === 'basic') {
+        router.push('../choose-plan'); // Redirect to choose plan
+      } else {
+        router.push(`/account/book/${bookId}`); // Go to book details
+      }
+    }
+  };
+
   return (
-    <div className="flex flex-row overflow-x-auto space-x-4 mt-10">
-      {books.map((book) => (
-        <Link href={`/account/book/${book.id}`} key={book.id}>
-          <div className="flex-shrink-0 w-64 cursor-pointer">
+    <div>
+      <div className="flex flex-row overflow-x-auto space-x-4 mt-10">
+        {books.map((book) => (
+          <div key={book.id} className="flex-shrink-0 w-64">
             <div className='flex w-40 m-3 justify-end'>
               {book.subscriptionRequired && (
                 <p className='text-white bg-blue-950 px-2 text-sm rounded-full'>Premium</p>
@@ -40,7 +64,8 @@ const RecommendedBooks: React.FC = () => {
             <img
               src={book.imageLink}
               alt={book.title}
-              className="w-[172px] h-[172px] object-cover"
+              className="w-[172px] h-[172px] cursor-pointer"
+              onClick={() => handleBookClick(book.id, book.subscriptionRequired)}
             />
             <div className="p-4">
               <h3 className="text-sm font-bold mb-1">{book.title}</h3>
@@ -51,11 +76,15 @@ const RecommendedBooks: React.FC = () => {
               </p>
             </div>
           </div>
-        </Link>
-      ))}
-      {error && <div className="text-red-500">{error}</div>}
+        ))}
+        {error && <div className="text-red-500">{error}</div>}
+      </div>
+
+      
+        <LoginModal isVisible={showModal} onClose={() => setShowModal(false)}  />
+    
     </div>
-  )
+  );
 }
 
 export default RecommendedBooks;

@@ -1,14 +1,20 @@
 'use client';
 import { useEffect, useState } from 'react';
 import axios, { AxiosResponse } from 'axios';
-import { Book } from './book'
-import Link from 'next/link'
-
+import { Book } from './book';
+import Link from 'next/link';
+import { getAuth } from 'firebase/auth';
+import LoginModal from '@/app/components/loginModal';
+import { useRouter } from 'next/navigation';
 
 const BookDetails: React.FC = () => {
   const [book, setBook] = useState<Book | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const [showModal, setShowModal] = useState<boolean>(false);
+  const [hasPremiumPlan, setHasPremiumPlan] = useState<boolean>(false); // Track premium status
+  const router = useRouter();
+  const auth = getAuth();
 
   useEffect(() => {
     const fetchBookDetails = async () => {
@@ -30,6 +36,21 @@ const BookDetails: React.FC = () => {
     fetchBookDetails();
   }, []);
 
+  const handleBookClick = () => {
+    const user = auth.currentUser;
+
+    if (!user) {
+      // User is not logged in, show the login modal
+      setShowModal(true);
+    } else if (!hasPremiumPlan) {
+      // User is logged in but does not have a premium plan
+      router.push('/pay'); // Redirect to payment page
+    } else {
+      // User is logged in and has a premium plan, navigate to the book details
+      router.push(`/account/book/${book?.id}`);
+    }
+  };
+
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -44,24 +65,23 @@ const BookDetails: React.FC = () => {
 
   return (
     <>
-  <Link href={`/account/book/${book.id}`} key={book.id} >
-    <div className='bg-yellow-100 w-[650px] h-[200px] flex flex-col '>
-      <div className='flex'>
-      <div className='m-2 p-5 w-[250px] h-[160px] border-r '>
-      <h1 className='text-sm font-medium'>{book.subTitle || 'No Subtitle available'}</h1>
+      <div className='bg-yellow-100 w-[650px] h-[200px] flex flex-col' >
+        <div className='flex' onClick={handleBookClick}>
+          <div className='m-2 p-5 w-[250px] h-[160px] border-r'>
+            <h1 className='text-sm font-medium'>{book.subTitle || 'No Subtitle available'}</h1>
+          </div>
+          <div className='flex m-2 p-5'>
+            <div>
+              <img src={book.imageLink} alt='Book Image' className='w-[150px]' />
+            </div>
+            <div className='p-2'>
+              <h2 className='font-bold'>{book.title || 'No Title'}</h2>
+              <h3 className='text-sm font-medium'>{book.author || 'Unknown Author'}</h3>
+            </div>
+          </div>
+        </div>
       </div>
-      <div className='flex m-2 p-5 '>
-        <div className=''>
-      <img src={book.imageLink} alt='Book Image' className='w-[150px]'/>
-      </div>
-      <div className='p-2'>
-      <h2 className='font-bold'>{book.title || 'No Title'}</h2>
-      <h3 className='text-sm font-medium'>{book.author || 'Unknown Author'}</h3>  
-      </div>  
-      </div>  
-      </div>
-    </div>
-    </Link>
+      <LoginModal isVisible={showModal} onClose={() => setShowModal(false)} />
     </>
   );
 };

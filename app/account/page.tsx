@@ -3,11 +3,10 @@ import React from 'react';
 import SelectedBook from './selectedBook';
 import RecommendedBook from './recommendedBooks';
 import SuggestedBooks from './suggestedBooks';
-import { BrowserRouter as Router } from 'react-router-dom';
 
 const AccountPage = () => {
   return (
-    <Router>
+  
       <div className='mx-60 p-4'>
         <div className='mb-4'>
           <h1 className='font-semibold text-xl'>Selected just for you</h1>
@@ -24,7 +23,7 @@ const AccountPage = () => {
           <SuggestedBooks /> 
         </div>
       </div>
-    </Router>
+ 
   );
 }
 
