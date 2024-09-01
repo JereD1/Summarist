@@ -3,7 +3,7 @@ import Setting from './setting';
 
 const page = () => {
   return (
-    <div className='mx-60 p-4'>
+    <div className='lg:mx-60 mx-5 p-4'>
       <Setting />
     </div>
   )

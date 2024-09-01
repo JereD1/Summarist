@@ -34,7 +34,7 @@ const Library: React.FC = () => {
   }
 
   return (
-    <div className="mx-60 p-6">
+    <div className="lg:mx-60 mx-4 p-6">
       <h1 className="text-3xl font-bold mb-4">Saved Books</h1>
       <div className="space-y-4">
         {library.map((book) => (
@@ -63,7 +63,7 @@ const Library: React.FC = () => {
 
         <div className='my-6'>
           <h1 className='text-3xl font-bold mb-4'>Finished</h1>
-          <div className='bg-gray-200 w-[500px] h-[120px] p-10 text-center mx-auto'>
+          <div className='bg-gray-200 lg:w-[500px] h-[120px] p-5 text-center mx-auto'>
             <h1 className='text-xl font-semibold'>Done and Dusted</h1>
             <h2>When you finish a book, you can find it here later</h2>
           </div>

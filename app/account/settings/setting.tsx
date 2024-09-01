@@ -5,6 +5,8 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { getFirestore, doc, getDoc } from 'firebase/firestore';
 import { useRouter } from 'next/navigation';
 
+import Skeleton from '@mui/material/Skeleton'; 
+
 const Setting = () => {
   const router = useRouter();
   const db = getFirestore();
@@ -35,10 +37,19 @@ const Setting = () => {
     return () => unsubscribe();
   }, [db]);
 
-  if (loading) return <div>Loading...</div>; // Optional loading state
+  if (loading) {
+    return (
+      <div className="flex flex-col mx-6 lg:mx-20 mt-6 lg:px-32">
+        <Skeleton variant="text" width="80%" height={40} />
+        <Skeleton variant="rectangular" width="100%" height={200} className="mt-4" />
+        <Skeleton variant="text" width="60%" height={30} className="mt-4" />
+        <Skeleton variant="text" width="60%" height={30} className="mt-2" />
+      </div>
+    );
+  }
 
   return (
-    <div className='flex flex-col justify-center'>
+    <div className='flex flex-col justify-center '>
       <div className='border-b mb-2 p-4'>
         <h1 className='font-bold text-4xl'>Setting</h1>
       </div>
