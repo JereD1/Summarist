@@ -4,7 +4,11 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { useRouter } from 'next/navigation';
 import { getFirestore, doc, setDoc } from 'firebase/firestore';
 
-const EmailPasswordLogin: React.FC = () => {
+interface EmailPasswordLoginProps {
+  onSuccess: () => void; // Add onSuccess prop
+}
+
+const EmailPasswordLogin: React.FC<EmailPasswordLoginProps> = ({ onSuccess }) => {
   const router = useRouter();
   const db = getFirestore();
   const [email, setEmail] = useState('');
@@ -44,6 +48,7 @@ const EmailPasswordLogin: React.FC = () => {
         createdAt: new Date(), // Timestamp
       });
 
+      onSuccess(); // Call onSuccess to close the modal
       router.push('./account'); // Redirect after successful login
     } catch (error) {
       if (error instanceof Error) {

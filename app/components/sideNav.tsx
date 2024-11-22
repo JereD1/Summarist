@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { IoHomeOutline, IoSearch, IoSettingsOutline, IoMenu } from "react-icons/io5";
@@ -14,7 +14,6 @@ import Skeleton from '@mui/material/Skeleton';
 const SideNav = () => {
     const [loading, setLoading] = useState(true);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
-
     const [showModal, setShowModal] = useState(false);
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const router = useRouter();
@@ -28,17 +27,9 @@ const SideNav = () => {
         return () => unsubscribe();
     }, [auth]);
 
-    const handleLibrary = () => {
-        router.push('/account/library'); 
-    };
-
-    const handleHomeRoute = () => {
-        router.push('/account'); 
-    };
-
-    const handleSetting = () => {
-        router.push('/account/settings'); 
-    };
+    const handleLibrary = () => router.push('/account/library'); 
+    const handleHomeRoute = () => router.push('/account'); 
+    const handleSetting = () => router.push('/account/settings'); 
 
     const handleLogOut = async () => {
         try {
@@ -50,20 +41,18 @@ const SideNav = () => {
         }
     };
 
-    const toggleSidebar = () => {
-        setSidebarOpen(!sidebarOpen);
-    };
+    const toggleSidebar = () => setSidebarOpen(!sidebarOpen);
 
     if (loading) {
         return (
-          <div className="flex flex-col mx-6 lg:mx-20 mt-6 lg:px-32">
-            <Skeleton variant="text" width="80%" height={40} />
-            <Skeleton variant="rectangular" width="100%" height={200} className="mt-4" />
-            <Skeleton variant="text" width="60%" height={30} className="mt-4" />
-            <Skeleton variant="text" width="60%" height={30} className="mt-2" />
-          </div>
+            <div className="flex flex-col mx-6 lg:mx-20 mt-6 lg:px-32">
+                <Skeleton variant="text" width="80%" height={40} />
+                <Skeleton variant="rectangular" width="100%" height={200} className="mt-4" />
+                <Skeleton variant="text" width="60%" height={30} className="mt-4" />
+                <Skeleton variant="text" width="60%" height={30} className="mt-2" />
+            </div>
         );
-      }
+    }
 
     return (
         <div className='relative'>

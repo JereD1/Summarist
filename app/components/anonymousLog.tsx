@@ -5,7 +5,11 @@ import { IoPersonSharp } from "react-icons/io5";
 import { useRouter } from 'next/navigation';
 import { getFirestore, doc, setDoc } from 'firebase/firestore';
 
-const AnonymousLog = () => {
+interface AnonymousLogProps {
+  onSuccess: () => void; // Add onSuccess prop
+}
+
+const AnonymousLog: React.FC<AnonymousLogProps> = ({ onSuccess }) => {
   const router = useRouter();
   const db = getFirestore();
 
@@ -24,6 +28,7 @@ const AnonymousLog = () => {
       });
 
       console.log('User data written to Firestore successfully');
+      onSuccess(); // Call onSuccess to close the modal
       router.push('./account');
     } catch (error) {
       if (error instanceof Error) {

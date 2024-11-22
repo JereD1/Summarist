@@ -5,7 +5,11 @@ import { FcGoogle } from "react-icons/fc";
 import { useRouter } from 'next/navigation';
 import { getFirestore, doc, setDoc } from 'firebase/firestore';
 
-const GoogleLogin: React.FC = () => {
+interface GoogleLoginProps {
+  onSuccess: () => void; // Add onSuccess prop
+}
+
+const GoogleLogin: React.FC<GoogleLoginProps> = ({ onSuccess }) => {
   const router = useRouter();
   const provider = new GoogleAuthProvider();
   const db = getFirestore();
@@ -24,6 +28,7 @@ const GoogleLogin: React.FC = () => {
         createdAt: new Date(), // Timestamp
       });
 
+      onSuccess(); // Call onSuccess to close the modal
       router.push('./account'); // Redirect after successful login
     } catch (error) {
       if (error instanceof Error) {
