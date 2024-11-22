@@ -7,7 +7,7 @@ import SuggestedBooks from './suggestedBooks';
 const AccountPage = () => {
   return (
   
-      <div className='lg:mx-60 mx-10 my-4 lg:p-4'>
+      <div className='relative z-0 lg:mx-60 mx-10 my-4 lg:p-4'>
         <div className='mb-4'>
           <h1 className='font-semibold text-xl'>Selected just for you</h1>
         </div>

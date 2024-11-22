@@ -111,8 +111,9 @@ const SideNav = () => {
                         </button>
                     )}
                 </div>
-                <LoginModal isVisible={showModal} onClose={() => setShowModal(false)} />
+                
             </div>
+            <LoginModal isVisible={showModal} onClose={() => setShowModal(false)} />
         </div>
     );
 };
